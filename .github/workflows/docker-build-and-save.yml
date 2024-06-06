@@ -1,0 +1,32 @@
+﻿name: Build and Save Docker Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Build Docker image
+        run: docker build -t kezboards:latest .
+
+      - name: Save Docker image to tar file
+        run: docker save -o kezboards.tar kezboards:latest
+
+      - name: Upload Docker image tar file
+        uses: actions/upload-artifact@v3
+        with:
+          name: kezboards-tar
+          path: kezboards.tar
