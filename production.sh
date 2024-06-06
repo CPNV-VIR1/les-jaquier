@@ -19,7 +19,7 @@ fi
 
 # Run Docker Compose
 echo "Starting services with Docker Compose..."
-docker-compose -f ${COMPOSE_FILE} up -d
+docker compose -f ${COMPOSE_FILE} up -d
 
 # Check if Docker Compose was successful
 if [ $? -ne 0 ]; then
