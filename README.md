@@ -1,6 +1,15 @@
 # Keyboards - Dockerized Rest API
 
-This repository is an example of an api rest spring application.
+This repository is an example of an api rest spring application using docker.
+
+## Prerequisites
+* AWS CLI v2.13 or later [official doc](https://aws.amazon.com/cli/)
+* IntelliJ IDEA Ultimate or later [official doc](https://www.jetbrains.com/idea/download/?section=windows)
+* IntelliJ Docker plugin [official doc](https://plugins.jetbrains.com/plugin/7724-docker/versions#tabs)
+* Docker V23 or later [official doc](https://www.docker.com/products/docker-desktop/)
+* git version 2.44 or later [official doc](https://git-scm.com/)
+* (maven v3.9 or later [official doc](https://maven.apache.org/download.cgi))
+* (JDK 17 [official doc](https://www.oracle.com/java/technologies/downloads/))
 
 ## First build
 
