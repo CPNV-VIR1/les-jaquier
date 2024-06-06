@@ -62,3 +62,14 @@ You can try with
 ```
 curl -i localhost:8080/keyboards
 ````
+
+## Collaborate
+
+* Workflow
+    * [Gitflow](https://www.atlassian.com/fr/git/tutorials/comparing-workflows/gitflow-workflow#:~:text=Gitflow%20est%20l'un%20des,les%20hotfix%20vers%20la%20production.)
+    * [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
+    * [How to use your workflow](https://nvie.com/posts/a-successful-git-branching-model/)
+
+    * Pull requests are open to merge in the develop branch.
+    * Release on the main branch we use GitFlow and not with GitHub release.
+    * Issues are added to the github issues page
