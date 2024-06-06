@@ -72,4 +72,5 @@ curl -i localhost:8080/keyboards
 
     * Pull requests are open to merge in the develop branch.
     * Release on the main branch we use GitFlow and not with GitHub release.
+    * Use snake_case for branches. (example : feature/nginx_api_gateway)
     * Issues are added to the github issues page
