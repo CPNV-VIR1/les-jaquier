@@ -1,5 +1,15 @@
 services:
-  server:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    ports:
+      - 80:80
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d/
+    depends_on:
+      api-server:
+        condition: service_healthy
+  api-server:
     build:
       context: .
     ports:
@@ -9,6 +19,12 @@ services:
         condition: service_healthy
     environment:
       - POSTGRES_URL=jdbc:postgresql://db:5432/petclinic
+    healthcheck:
+      test: "curl -Is localhost:8080/keyboards | head -n 1 | grep 200 || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
   db:
     image: postgres
     restart: always
