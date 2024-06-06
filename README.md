@@ -1,4 +1,4 @@
-# Spring - REST API
+# Keyboards - Dockerized Rest API
 
 This repository is an example of an api rest spring application.
 
@@ -43,3 +43,13 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 
 [{"id":1,"name":"El CYPE","housing":"aluminum","numberOfKeycaps":68,"pcbformat":"ANSI"},{"id":2,"name":"Frodo Baggins","housing":"plastic","numberOfKeycaps":104,"pcbformat":"ANSI"},{"id":3,"name":"Gandalf the Grey","housing":"wood","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":4,"name":"Samwise Gamgee","housing":"aluminum","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":5,"name":"Aragorn","housing":"steel","numberOfKeycaps":104,"pcbformat":"ANSI"}]
 ```
+
+## Deploy with docker
+Deploy a postgresql, the spring api app and (in future) a NGinx API Gateway.
+```
+docker compose up
+````
+You can try with 
+```
+curl -i localhost:8080/keyboards
+````
