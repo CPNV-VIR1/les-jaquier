@@ -1,4 +1,4 @@
-# Keyboards - Dockerized Rest API
+# Kezboards - Dockerized Rest API
 
 This repository is an example of an api rest spring application using docker.
 
