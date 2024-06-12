@@ -1,4 +1,4 @@
-package ch.cpnves.payroll.Controllers;
+package ch.cpnves.kezboards.Controllers;
 
 public class KeyboardNotFoundException extends RuntimeException{
 

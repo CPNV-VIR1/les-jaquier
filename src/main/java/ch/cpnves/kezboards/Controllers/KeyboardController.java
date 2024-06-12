@@ -1,7 +1,7 @@
-package ch.cpnves.payroll.Controllers;
+package ch.cpnves.kezboards.Controllers;
 
-import ch.cpnves.payroll.Repositories.KeyboardRepository;
-import ch.cpnves.payroll.Entities.Keyboard;
+import ch.cpnves.kezboards.Repositories.KeyboardRepository;
+import ch.cpnves.kezboards.Entities.Keyboard;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

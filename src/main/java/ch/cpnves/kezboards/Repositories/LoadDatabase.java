@@ -1,6 +1,6 @@
-package ch.cpnves.payroll.Repositories;
+package ch.cpnves.kezboards.Repositories;
 
-import ch.cpnves.payroll.Entities.Keyboard;
+import ch.cpnves.kezboards.Entities.Keyboard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
