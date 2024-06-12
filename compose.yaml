@@ -8,20 +8,22 @@ services:
       db:
         condition: service_healthy
     environment:
-      - POSTGRES_URL=jdbc:postgresql://db:5432/petclinic
+      - POSTGRES_URL=jdbc:postgresql://db:5432/kezboard
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
   db:
     image: postgres
     restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=petclinic
-      - POSTGRES_USER=petclinic
-      - POSTGRES_PASSWORD=petclinic
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
       - 5432:5432
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "petclinic" ]
+      test: [ "CMD", "pg_isready", "-U", "kezboard" ]
       interval: 10s
       timeout: 5s
       retries: 5
