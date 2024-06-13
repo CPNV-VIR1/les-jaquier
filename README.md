@@ -26,7 +26,7 @@ Note : To find out which version of jdk to install in your project, check the po
 ```
   [...]
     2024-05-30T08:42:27.632+02:00  INFO 1088 --- [kezboards] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
-    2024-05-30T08:42:27.640+02:00  INFO 1088 --- [kezboards] [           main] ch.cpnves.kezboards.KeyboardsApplication     : Started kezboardsApplication in 2.839 seconds (process running for 3.086)
+    2024-05-30T08:42:27.640+02:00  INFO 1088 --- [kezboards] [           main] ch.cpnves.kezboards.KezboardsApplication     : Started kezboardsApplication in 2.839 seconds (process running for 3.086)
     2024-05-30T08:42:27.684+02:00  INFO 1088 --- [kezboards] [           main] c.c.kezboards.Repositories.LoadDatabase    : Preloading Employee{id=1, name='Bilbo Baggins', role='burglar'}
     2024-05-30T08:42:27.685+02:00  INFO 1088 --- [kezboards] [           main] c.c.kezboards.Repositories.LoadDatabase    : Preloading Employee{id=2, name='Frodo Baggins', role='thief'}
   [...]
