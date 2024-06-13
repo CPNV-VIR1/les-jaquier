@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 #docker load -i kezboards.tar
 #docker-compose -f compose-production.yaml down
 #docker-compose -f compose-production.yaml up
