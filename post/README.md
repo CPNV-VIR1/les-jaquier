@@ -24,23 +24,23 @@ Note : To find out which version of jdk to install in your project, check the po
 
 ## Test using http requests
 
-Got the file [project]\src\main\java\ch\cpnves\kezboards\Controllers\EmployeeController.java
-
-Before all routes methods, you will find a curl sample.
-
 [INPUT]
-```
-curl -i localhost:8080/keyboards
+```sh
+curl -i -X POST localhost:8080/keyboards \
+    -H "Content-Type: application/json" \
+    -d '{"name": "Russel George", "PCBFormat": "ANSI", "housing": "plastic", "numberOfKeycaps": 87}'
 ````
 
 [OUTPUT]
 ```
 HTTP/1.1 200 
+Server: nginx/1.27.0
+Date: Thu, 13 Jun 2024 08:26:43 GMT
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Thu, 30 May 2024 06:45:57 GMT
+Connection: keep-alive
 
-[{"id":1,"name":"El CYPE","housing":"aluminum","numberOfKeycaps":68,"pcbformat":"ANSI"},{"id":2,"name":"Frodo Baggins","housing":"plastic","numberOfKeycaps":104,"pcbformat":"ANSI"},{"id":3,"name":"Gandalf the Grey","housing":"wood","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":4,"name":"Samwise Gamgee","housing":"aluminum","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":5,"name":"Aragorn","housing":"steel","numberOfKeycaps":104,"pcbformat":"ANSI"}]
+{"id":5108,"name":"Russel George","housing":"plastic","numberOfKeycaps":87,"pcbformat":null}
 ```
 
 ## Collaborate

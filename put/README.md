@@ -17,30 +17,28 @@ Note : To find out which version of jdk to install in your project, check the po
   [...]
     2024-05-30T08:42:27.632+02:00  INFO 1088 --- [kezboards] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
     2024-05-30T08:42:27.640+02:00  INFO 1088 --- [kezboards] [           main] ch.cpnves.kezboards.put.KezboardsApplication     : Started kezboardsApplication in 2.839 seconds (process running for 3.086)
-    2024-05-30T08:42:27.684+02:00  INFO 1088 --- [kezboards] [           main] c.c.kezboards.Repositories.LoadDatabase    : Preloading Employee{id=1, name='Bilbo Baggins', role='burglar'}
-    2024-05-30T08:42:27.685+02:00  INFO 1088 --- [kezboards] [           main] c.c.kezboards.Repositories.LoadDatabase    : Preloading Employee{id=2, name='Frodo Baggins', role='thief'}
   [...]
 ```
 
 ## Test using http requests
 
-Got the file [project]\src\main\java\ch\cpnves\kezboards\Controllers\EmployeeController.java
-
-Before all routes methods, you will find a curl sample.
-
 [INPUT]
 ```
-curl -i localhost:8080/keyboards
+curl -i -X PUT localhost:8080/keyboards/2 \
+    -H "Content-Type: application/json" \
+    -d '{"name": "Russel George", "PCBFormat": "ANSI", "housing": "plastic", "numberOfKeycaps": 140}'
 ````
 
 [OUTPUT]
 ```
 HTTP/1.1 200 
+Server: nginx/1.27.0
+Date: Thu, 13 Jun 2024 08:33:08 GMT
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Thu, 30 May 2024 06:45:57 GMT
+Connection: keep-alive
 
-[{"id":1,"name":"El CYPE","housing":"aluminum","numberOfKeycaps":68,"pcbformat":"ANSI"},{"id":2,"name":"Frodo Baggins","housing":"plastic","numberOfKeycaps":104,"pcbformat":"ANSI"},{"id":3,"name":"Gandalf the Grey","housing":"wood","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":4,"name":"Samwise Gamgee","housing":"aluminum","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":5,"name":"Aragorn","housing":"steel","numberOfKeycaps":104,"pcbformat":"ANSI"}]
+{"id":2,"name":"Russel George","housing":"plastic","numberOfKeycaps":140,"pcbformat":null}
 ```
 
 ## Collaborate
