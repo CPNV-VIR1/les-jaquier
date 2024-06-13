@@ -74,7 +74,7 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 ```shell
 ├───.github
 │   └───workflows                //Github action with matrixes
-├───ms-[delete, post, get, put]  //Consider these folders as a standalone repo. Should not have dependencies with other folders
+├───ms-[post, get, put, db, ...] //Consider these folders as a standalone repo. Should not have dependencies with other folders
 │   ├───README.md                //Provide a README for just the standalone microservice
 │   ├───Dockerfile
 │   ├───pom.xml
