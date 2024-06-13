@@ -1,19 +1,20 @@
 services:
-  nginx:
+  ms-api-gateway:
     image: nginx:latest
-    container_name: nginx-proxy
+    container_name: ms-api-gateway
     ports:
       - 8080:80
     volumes:
       - ./config/nginx:/etc/nginx/conf.d/
     depends_on:
-      get-api-server:
+      ms-get:
         condition: service_healthy
-  get-api-server:
+  ms-get:
     build:
       context: ./get
+    container_name: ms-get
     depends_on:
-      db:
+      ms-db:
         condition: service_healthy
     healthcheck:
       test: "curl -Is localhost:8080/keyboards | head -n 1 | grep 200 || exit 1"
@@ -22,41 +23,45 @@ services:
       retries: 5
       start_period: 20s
     environment:
-      - POSTGRES_URL=jdbc:postgresql://db:5432/kezboard
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/kezboard
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-  put-api-server:
+  ms-put:
     build:
       context: ./put
+    container_name: ms-put
     depends_on:
-      db:
+      ms-db:
         condition: service_healthy
     environment:
-      - POSTGRES_URL=jdbc:postgresql://db:5432/kezboard
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/kezboard
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-  post-api-server:
+  ms-post:
     build:
       context: ./post
+    container_name: ms-post
     depends_on:
-      db:
+      ms-db:
         condition: service_healthy
     environment:
-      - POSTGRES_URL=jdbc:postgresql://db:5432/kezboard
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/kezboard
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-  delete-api-server:
+  ms-delete:
     build:
       context: ./delete
+    container_name: ms-delete
     depends_on:
-      db:
+      ms-db:
         condition: service_healthy
     environment:
-      - POSTGRES_URL=jdbc:postgresql://db:5432/kezboard
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/kezboard
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-  db:
+  ms-db:
     image: postgres
+    container_name: ms-db
     restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
