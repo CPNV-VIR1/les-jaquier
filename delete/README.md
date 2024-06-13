@@ -1,4 +1,4 @@
-# Kezboards - GET Rest API
+# Kezboards - DELETE Rest API
 
 This folder is for the microservice that 'GET' keyboards (one or multiple)
 
