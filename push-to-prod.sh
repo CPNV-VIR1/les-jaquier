@@ -9,17 +9,16 @@ DB_TAR_FILE="kezboards-db.tar"
 API_GATEWAY_TAR_FILE="kezboards-api-gateway.tar"
 COMPOSE_FILE="compose-production.yaml"
 PRODUCTION_SCRIPT="production.sh"
+NGINX_CONFIG_FILE="ms-api-gateway/config/nginx/kezboard.conf"
 
 # Get the directory of the current script
 SCRIPT_DIR=$(dirname "$0")
 
 # Load environment variables from .env file
-if [ -f "$SCRIPT_DIR/../.env" ]; then
-  # Remove any carriage return characters from the .env file
-  sed -i 's/\r$//' "$SCRIPT_DIR/../.env"
+if [ -f "$SCRIPT_DIR/.env" ]; then
   # Export environment variables
   set -a
-  source "$SCRIPT_DIR/../.env"
+  source "$SCRIPT_DIR/.env"
   set +a
 else
   echo ".env file not found!"
@@ -29,7 +28,7 @@ fi
 # TODO : Get latest .tars from GitHub
 
 # Ensure necessary environment variables are set
-if [ -z "$AWS_PRIVATE_KEY_PATH" ] || [ -z "$AWS_HOST" ] || [ -z "$AWS_USER" ] || [ -z "$REMOTE_DIR" ] || [ -z "$AWS_SSH_PORT" ] || [ -z "$NGINX_CONFIG_FILE" ]; then
+if [ -z "$AWS_PRIVATE_KEY_PATH" ] || [ -z "$AWS_HOST" ] || [ -z "$AWS_USER" ] || [ -z "$REMOTE_DIR" ] || [ -z "$AWS_SSH_PORT" ]; then
   echo "One or more environment variables are missing!"
   exit 1
 fi
