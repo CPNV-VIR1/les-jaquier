@@ -34,6 +34,7 @@ curl -i localhost:8080/keyboards
 ### Deploy remotely (docker)
 Push the precompiled .tar to production with SCP (based on your .env config)
 ```
+cd ./deployment
 sh push-to-prod.sh
 ````
 Note : On windows, execute this with Git Bash.
