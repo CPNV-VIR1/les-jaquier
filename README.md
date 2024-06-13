@@ -60,6 +60,33 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 [{"id":1,"name":"El CYPE","housing":"aluminum","numberOfKeycaps":68,"pcbformat":"ANSI"},{"id":2,"name":"Frodo Baggins","housing":"plastic","numberOfKeycaps":104,"pcbformat":"ANSI"},{"id":3,"name":"Gandalf the Grey","housing":"wood","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":4,"name":"Samwise Gamgee","housing":"aluminum","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":5,"name":"Aragorn","housing":"steel","numberOfKeycaps":104,"pcbformat":"ANSI"}]
 ```
 
+## Directory structure
+
+* Tip: try the tree bash command
+
+```shell
+├───.github
+│   └───workflows                //Github action with matrixes
+├───config                       //Every config for Docker Compose
+│   └───nginx                                              
+├───ms-[delete, post, get, put]  //Consider these folders as a standalone repo. Should not have dependencies with other folders
+│   ├───README.md                //Provide a README for just the standalone microservice
+│   ├───Dockerfile
+│   ├───pom.xml
+│   └───src                      //The structure below src can vary depending the language /appverifUI.dll framework (Here, a java spring microservice)
+│       └───main
+│           ├───java.ch.cpnves...[delete, post, get, put]
+│           │   ├───Controllers
+│           │   ├───Entities
+│           │   └───Repositories
+│           └───resources
+├───deployment                   //All the script to deploy remotely
+├───docs
+├───compose*.yaml
+├───.env
+└───README.md                    //The root files (like README) are only describing the combinaison of microservices with docker
+```
+
 ## Collaborate
 
 * Workflow
