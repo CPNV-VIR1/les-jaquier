@@ -2,7 +2,7 @@
 
 on:
   push:
-    branches: [ "main", "develop", "feature/split_by_http_methods" ]
+    branches: [ "main", "develop" ]
   pull_request:
     branches: [ "main", "develop" ]
 
