@@ -30,7 +30,7 @@ scp -P "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $COMPOSE_PRODUCTION_FILE $AWS_US
 
 # Connect to the EC2 instance and execute the production script
 echo "Connecting to $AWS_HOST and executing $PRODUCTION_SCRIPT..."
-ssh -i $AWS_PRIVATE_KEY_PATH $AWS_USER@$AWS_HOST << EOF
+ssh -p "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $AWS_USER@$AWS_HOST << EOF
   chmod +x $REMOTE_DIR/$PRODUCTION_SCRIPT
   chmod 644 $REMOTE_DIR/$COMPOSE_PRODUCTION_FILE
   cd $REMOTE_DIR
