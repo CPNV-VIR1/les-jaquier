@@ -17,7 +17,7 @@ else
 fi
 
 # Ensure necessary environment variables are set
-if [ -z "$AWS_PRIVATE_KEY_PATH" ] || [ -z "$AWS_HOST" ] || [ -z "$AWS_USER" ] || [ -z "$REMOTE_DIR" ] || [ -z "$TAR_FILE" ] || [ -z "$PRODUCTION_SCRIPT" ] || [ -z "$COMPOSE_FILE" ] || [ -z "$AWS_SSH_PORT" ]; then
+if [ -z "$AWS_PRIVATE_KEY_PATH" ] || [ -z "$AWS_HOST" ] || [ -z "$AWS_USER" ] || [ -z "$REMOTE_DIR" ] || [ -z "$TAR_FILE" ] || [ -z "$PRODUCTION_SCRIPT" ] || [ -z "$COMPOSE_PRODUCTION_FILE" ] || [ -z "$AWS_SSH_PORT" ]; then
   echo "One or more environment variables are missing!"
   exit 1
 fi
@@ -26,13 +26,13 @@ fi
 echo "Transferring files to $AWS_HOST on port $AWS_SSH_PORT..."
 scp -P "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $TAR_FILE $AWS_USER@$AWS_HOST:$REMOTE_DIR/
 scp -P "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $PRODUCTION_SCRIPT $AWS_USER@$AWS_HOST:$REMOTE_DIR/
-scp -P "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $COMPOSE_FILE $AWS_USER@$AWS_HOST:$REMOTE_DIR/
+scp -P "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $COMPOSE_PRODUCTION_FILE $AWS_USER@$AWS_HOST:$REMOTE_DIR/
 
 # Connect to the EC2 instance and execute the production script
 echo "Connecting to $AWS_HOST and executing $PRODUCTION_SCRIPT..."
 ssh -i $AWS_PRIVATE_KEY_PATH $AWS_USER@$AWS_HOST << EOF
   chmod +x $REMOTE_DIR/$PRODUCTION_SCRIPT
-  chmod 644 $REMOTE_DIR/$COMPOSE_FILE
+  chmod 644 $REMOTE_DIR/$COMPOSE_PRODUCTION_FILE
   cd $REMOTE_DIR
   sudo ./$(basename $PRODUCTION_SCRIPT)
 EOF
