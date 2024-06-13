@@ -1,33 +1,63 @@
 services:
-  nginx:
+  ms-api-gateway:
     image: nginx:latest
-    container_name: nginx-proxy
+    container_name: ms-api-gateway
     ports:
-      - 80:80
+      - 8080:80
     volumes:
       - ./config/nginx:/etc/nginx/conf.d/
     depends_on:
-      api-server:
+      ms-get:
         condition: service_healthy
-  api-server:
-    image: kezboards:latest
-    ports:
-      - 8080:8080
+  ms-get:
+    image: kezboards-get:latest
+    container_name: ms-get
     depends_on:
-      db:
+      ms-db:
         condition: service_healthy
     healthcheck:
       test: "curl -Is localhost:8080/keyboards | head -n 1 | grep 200 || exit 1"
       interval: 20s
       timeout: 5s
       retries: 5
-      start_period: 30s
+      start_period: 20s
     environment:
-      - POSTGRES_URL=jdbc:postgresql://db:5432/kezboard
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/kezboard
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-  db:
+  ms-put:
+    image: kezboards-put:latest
+    container_name: ms-put
+    depends_on:
+      ms-db:
+        condition: service_healthy
+    environment:
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/kezboard
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+  ms-post:
+    image: kezboards-post:latest
+    container_name: ms-post
+    depends_on:
+      ms-db:
+        condition: service_healthy
+    environment:
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/kezboard
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+  ms-delete:
+    image: kezboards-delete:latest
+    container_name: ms-delete
+    depends_on:
+      ms-db:
+        condition: service_healthy
+    environment:
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/kezboard
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+  ms-db:
     image: postgres
+    container_name: ms-db
     restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
@@ -35,8 +65,6 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-    ports:
-      - 5432:5432
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "kezboard" ]
       interval: 10s
