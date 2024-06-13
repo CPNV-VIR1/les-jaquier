@@ -1,19 +1,32 @@
-﻿#!/bin/bash
+#!/bin/bash
 
-# Variables
-TAR_FILE="kezboards.tar"
-PRODUCTION_SCRIPT="production.sh"
-COMPOSE_FILE="compose-production.yaml"
-REMOTE_DIR="~/"
-AWS_PRIVATE_KEY_PATH="C:\Users\pk45jin\.ssh\VIR1_DEB12_DOCKER_LESJACQUIERS.pem" # Update this to your actual private key path
-AWS_HOST="15.188.181.147" # Update this to your EC2 instance public DNS
-AWS_USER="admin" # Update this to your EC2 username (e.g., ec2-user, ubuntu)
+# Get the directory of the current script
+SCRIPT_DIR=$(dirname "$0")
+
+# Load environment variables from .env file
+if [ -f "$SCRIPT_DIR/.env" ]; then
+  # Remove any carriage return characters from the .env file
+  sed -i 's/\r$//' "$SCRIPT_DIR/.env"
+  # Export environment variables
+  set -a
+  source "$SCRIPT_DIR/.env"
+  set +a
+else
+  echo ".env file not found!"
+  exit 1
+fi
+
+# Ensure necessary environment variables are set
+if [ -z "$AWS_PRIVATE_KEY_PATH" ] || [ -z "$AWS_HOST" ] || [ -z "$AWS_USER" ] || [ -z "$REMOTE_DIR" ] || [ -z "$TAR_FILE" ] || [ -z "$PRODUCTION_SCRIPT" ] || [ -z "$COMPOSE_FILE" ] || [ -z "$AWS_SSH_PORT" ]; then
+  echo "One or more environment variables are missing!"
+  exit 1
+fi
 
 # Transfer files to the EC2 instance
-echo "Transferring files to $AWS_HOST..."
-scp -i $AWS_PRIVATE_KEY_PATH $TAR_FILE $AWS_USER@$AWS_HOST:$REMOTE_DIR/
-scp -i $AWS_PRIVATE_KEY_PATH $PRODUCTION_SCRIPT $AWS_USER@$AWS_HOST:$REMOTE_DIR/
-scp -i $AWS_PRIVATE_KEY_PATH $COMPOSE_FILE $AWS_USER@$AWS_HOST:$REMOTE_DIR/
+echo "Transferring files to $AWS_HOST on port $AWS_SSH_PORT..."
+scp -P "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $TAR_FILE $AWS_USER@$AWS_HOST:$REMOTE_DIR/
+scp -P "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $PRODUCTION_SCRIPT $AWS_USER@$AWS_HOST:$REMOTE_DIR/
+scp -P "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $COMPOSE_FILE $AWS_USER@$AWS_HOST:$REMOTE_DIR/
 
 # Connect to the EC2 instance and execute the production script
 echo "Connecting to $AWS_HOST and executing $PRODUCTION_SCRIPT..."
