@@ -1,2 +1,2 @@
 ﻿# syntax=docker/dockerfile:1
-FROM nginx:latest
+FROM nginx:stable-alpine-slim
