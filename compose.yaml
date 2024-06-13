@@ -1,35 +1,70 @@
 services:
-  nginx:
-    image: nginx:latest
-    container_name: nginx-proxy
+  ms-api-gateway:
+    build:
+      context: ms-api-gateway
+    container_name: ms-api-gateway
     ports:
-      - 80:80
+      - 8080:80
     volumes:
-      - ./config/nginx:/etc/nginx/conf.d/
+      - ./ms-api-gateway/config/nginx:/etc/nginx/conf.d/
       - log-data:/var/log/nginx
     depends_on:
-      api-server:
+      ms-get:
         condition: service_healthy
-  api-server:
+  ms-get:
     build:
-      context: .
-    ports:
-      - 8080:8080
+      context: ms-get
+    container_name: ms-get
     depends_on:
-      db:
+      ms-db:
         condition: service_healthy
     healthcheck:
       test: "curl -Is localhost:8080/keyboards | head -n 1 | grep 200 || exit 1"
       interval: 20s
       timeout: 5s
       retries: 5
-      start_period: 30s
+      start_period: 20s
     environment:
-      - POSTGRES_URL=jdbc:postgresql://db:5432/kezboard
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-  db:
-    image: postgres
+  ms-put:
+    build:
+      context: ms-put
+    container_name: ms-put
+    depends_on:
+      ms-db:
+        condition: service_healthy
+    environment:
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+  ms-post:
+    build:
+      context: ms-post
+    container_name: ms-post
+    depends_on:
+      ms-db:
+        condition: service_healthy
+    environment:
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+  ms-delete:
+    build:
+      context: ms-delete
+    container_name: ms-delete
+    depends_on:
+      ms-db:
+        condition: service_healthy
+    environment:
+      - POSTGRES_URL=jdbc:postgresql://ms-db:5432/${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+  ms-db:
+    build:
+      context: ms-db
+    container_name: ms-db
     restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
@@ -37,8 +72,6 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-    ports:
-      - 5432:5432
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "kezboard" ]
       interval: 10s

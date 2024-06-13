@@ -9,6 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        folder: [ get, post, put, delete, db, api-gateway ]
 
     steps:
       - name: Checkout code
@@ -18,13 +22,13 @@ jobs:
         uses: docker/setup-buildx-action@v3
         
       - name: Build Docker image
-        run: docker build -t kezboards:latest .
+        run: docker build -t kezboards-${{ matrix.folder }}:latest ./ms-${{ matrix.folder }}
 
       - name: Save Docker image to tar file
-        run: docker save -o kezboards.tar kezboards:latest
+        run: docker save -o kezboards-${{ matrix.folder }}.tar kezboards-${{ matrix.folder }}:latest
 
       - name: Upload Docker image tar file
         uses: actions/upload-artifact@v3
         with:
-          name: kezboards-tar
-          path: kezboards.tar
+          name: kezboards-${{ matrix.folder }}-tar
+          path: kezboards-${{ matrix.folder }}.tar
