@@ -16,6 +16,10 @@ This repository is an example of an api rest spring application using docker wit
 All curl commands are executed in GitBash and use mingw implementation (more close to UNIX one that powershell).
 See [Git for Windows](https://gitforwindows.org/) for more information and download.
 
+#### NOTE FOR MAC M1 USERS
+Currently, the "eclipse-temurin:17-jre-alpine" is not available on ARM64 devices, only AMD64 (on Dockerfiles).
+To use the project, adapt FROM "eclipse-temurin:17-jre-alpine" to "eclipse-temurin:17-jre".
+
 ### Configuration
 Copy the '.env.example' to '.env' and set the environment variables for your needs (this will be mainly used for docker compose configuration and deployment).
 
@@ -74,7 +78,7 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 ```shell
 ├───.github
 │   └───workflows                //Github action with matrixes
-├───ms-[post, get, put, db, ...] //Consider these folders as a standalone repo. Should not have dependencies with other folders
+├───ms-[get, post, put, delete]  //Consider these folders as a standalone repo. Should not have dependencies with other folders
 │   ├───README.md                //Provide a README for just the standalone microservice
 │   ├───Dockerfile
 │   ├───pom.xml
@@ -85,6 +89,9 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 │           │   ├───Entities
 │           │   └───Repositories
 │           └───resources
+├───ms-[db, api-gateway]         //Used to build custom images without code
+│   ├───Dockerfile
+│   └───config                   //Optionnal additionnal config recommanded when used in compose
 ├───docs
 ├───compose*.yaml                //Dev and production docker compose
 ├───*.sh                         //All the script to deploy remotely
