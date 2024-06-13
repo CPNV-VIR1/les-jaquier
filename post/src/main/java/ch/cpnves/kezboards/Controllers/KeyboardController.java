@@ -14,21 +14,14 @@ public class KeyboardController {
     KeyboardController(KeyboardRepository repository){
         this.repository = repository;
     }
-
+    
     /* curl sample :
-    curl -i localhost:8080/keyboards
+    curl -i -X POST localhost:8080/keyboards \
+    -H "Content-type:application/json" \
+    -d "{\"name\": \"Russel George\", \"PCBFormat\": \"ANSI\", \"housing\": \"plastic\", \"numberOfKeycaps\": 87}"
     */
-    @GetMapping("/keyboards")
-    List<Keyboard> all(){
-        return repository.findAll();
-    }
-
-    /* curl sample :
-    curl -i localhost:8080/keyboards/1
-    */
-    @GetMapping("/keyboards/{id}")
-    Keyboard one(@PathVariable Long id){
-        return repository.findById(id)
-                .orElseThrow(() -> new KeyboardNotFoundException(id));
+    @PostMapping("/keyboards")
+    Keyboard newKeyboard(@RequestBody Keyboard newKeyboard){
+        return repository.save(newKeyboard);
     }
 }

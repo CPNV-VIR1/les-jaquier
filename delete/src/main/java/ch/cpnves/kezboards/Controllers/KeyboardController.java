@@ -16,19 +16,10 @@ public class KeyboardController {
     }
 
     /* curl sample :
-    curl -i localhost:8080/keyboards
+    curl -i -X DELETE localhost:8080/keyboards/2
     */
-    @GetMapping("/keyboards")
-    List<Keyboard> all(){
-        return repository.findAll();
-    }
-
-    /* curl sample :
-    curl -i localhost:8080/keyboards/1
-    */
-    @GetMapping("/keyboards/{id}")
-    Keyboard one(@PathVariable Long id){
-        return repository.findById(id)
-                .orElseThrow(() -> new KeyboardNotFoundException(id));
+    @DeleteMapping("/keyboards/{id}")
+    void deleteKeyboard(@PathVariable Long id){
+        repository.deleteById(id);
     }
 }
