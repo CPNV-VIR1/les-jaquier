@@ -16,6 +16,8 @@ else
   exit 1
 fi
 
+# TODO : Get latest .tars from GitHub
+
 # Ensure necessary environment variables are set
 if [ -z "$AWS_PRIVATE_KEY_PATH" ] || [ -z "$AWS_HOST" ] || [ -z "$AWS_USER" ] || [ -z "$REMOTE_DIR" ] || [ -z "$GET_TAR_FILE" ] || [ -z "$PUT_TAR_FILE" ] || [ -z "$POST_TAR_FILE" ] || [ -z "$DELETE_TAR_FILE" ] || [ -z "$PRODUCTION_SCRIPT" ] || [ -z "$COMPOSE_PRODUCTION_FILE" ] || [ -z "$AWS_SSH_PORT" ]; then
   echo "One or more environment variables are missing!"
