@@ -22,7 +22,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
         
       - name: Build Docker image
-        run: docker build -t kezboards-${{ matrix.folder }}:latest ./${{ matrix.folder }}
+        run: docker build -t kezboards-${{ matrix.folder }}:latest ./ms-${{ matrix.folder }}
 
       - name: Save Docker image to tar file
         run: docker save -o kezboards-${{ matrix.folder }}.tar kezboards-${{ matrix.folder }}:latest

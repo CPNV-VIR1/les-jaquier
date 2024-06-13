@@ -11,7 +11,7 @@ services:
         condition: service_healthy
   ms-get:
     build:
-      context: ./get
+      context: ms-get
     container_name: ms-get
     depends_on:
       ms-db:
@@ -28,7 +28,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
   ms-put:
     build:
-      context: ./put
+      context: ms-put
     container_name: ms-put
     depends_on:
       ms-db:
@@ -39,7 +39,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
   ms-post:
     build:
-      context: ./post
+      context: ms-post
     container_name: ms-post
     depends_on:
       ms-db:
@@ -50,7 +50,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
   ms-delete:
     build:
-      context: ./delete
+      context: ms-delete
     container_name: ms-delete
     depends_on:
       ms-db:
