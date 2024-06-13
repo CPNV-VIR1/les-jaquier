@@ -1,6 +1,6 @@
 services:
   ms-api-gateway:
-    image: nginx:latest
+    image: kezboards-api-gateway:latest
     container_name: ms-api-gateway
     ports:
       - 8080:80
@@ -56,7 +56,7 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
   ms-db:
-    image: postgres
+    image: kezboards-db:latest
     container_name: ms-db
     restart: always
     volumes:

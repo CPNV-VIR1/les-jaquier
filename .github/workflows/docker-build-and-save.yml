@@ -12,7 +12,7 @@ jobs:
     
     strategy:
       matrix:
-        folder: [ get, post, put, delete ]
+        folder: [ get, post, put, delete, db, api-gateway ]
 
     steps:
       - name: Checkout code

@@ -1,6 +1,7 @@
 services:
   ms-api-gateway:
-    image: nginx:latest
+    build:
+      context: ms-api-gateway
     container_name: ms-api-gateway
     ports:
       - 8080:80
@@ -60,7 +61,8 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
   ms-db:
-    image: postgres
+    build:
+      context: ms-db
     container_name: ms-db
     restart: always
     volumes:
