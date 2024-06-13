@@ -27,7 +27,7 @@ RUN cp -r /build/target/extracted/snapshot-dependencies/. ./
 RUN cp -r /build/target/extracted/application/. ./
 CMD [ "java", "-Dspring.profiles.active=postgres", "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000'", "org.springframework.boot.loader.launch.JarLauncher" ]
 
-FROM eclipse-temurin:17-jre-jammy AS final
+FROM eclipse-temurin:17-jre-alpine AS final
 ARG UID=10001
 RUN adduser \
     --disabled-password \
