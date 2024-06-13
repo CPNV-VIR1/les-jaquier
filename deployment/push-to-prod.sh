@@ -4,12 +4,12 @@
 SCRIPT_DIR=$(dirname "$0")
 
 # Load environment variables from .env file
-if [ -f "$SCRIPT_DIR/.env" ]; then
+if [ -f "$SCRIPT_DIR/../.env" ]; then
   # Remove any carriage return characters from the .env file
-  sed -i 's/\r$//' "$SCRIPT_DIR/.env"
+  sed -i 's/\r$//' "$SCRIPT_DIR/../.env"
   # Export environment variables
   set -a
-  source "$SCRIPT_DIR/.env"
+  source "$SCRIPT_DIR/../.env"
   set +a
 else
   echo ".env file not found!"
