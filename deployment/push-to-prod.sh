@@ -19,7 +19,7 @@ fi
 # TODO : Get latest .tars from GitHub
 
 # Ensure necessary environment variables are set
-if [ -z "$AWS_PRIVATE_KEY_PATH" ] || [ -z "$AWS_HOST" ] || [ -z "$AWS_USER" ] || [ -z "$REMOTE_DIR" ] || [ -z "$GET_TAR_FILE" ] || [ -z "$PUT_TAR_FILE" ] || [ -z "$POST_TAR_FILE" ] || [ -z "$DELETE_TAR_FILE" ] || [ -z "$PRODUCTION_SCRIPT" ] || [ -z "$COMPOSE_PRODUCTION_FILE" ] || [ -z "$AWS_SSH_PORT" ]; then
+if [ -z "$AWS_PRIVATE_KEY_PATH" ] || [ -z "$AWS_HOST" ] || [ -z "$AWS_USER" ] || [ -z "$REMOTE_DIR" ] || [ -z "$GET_TAR_FILE" ] || [ -z "$PUT_TAR_FILE" ] || [ -z "$POST_TAR_FILE" ] || [ -z "$DELETE_TAR_FILE" ] || [ -z "$PRODUCTION_SCRIPT" ] || [ -z "$COMPOSE_PRODUCTION_FILE" ] || [ -z "$AWS_SSH_PORT" ] || [ -z "$NGINX_CONFIG_FILE" ]; then
   echo "One or more environment variables are missing!"
   exit 1
 fi
@@ -30,8 +30,9 @@ scp -P "$AWS_SSH_PORT" -i "$AWS_PRIVATE_KEY_PATH" "$GET_TAR_FILE" "$AWS_USER@$AW
 scp -P "$AWS_SSH_PORT" -i "$AWS_PRIVATE_KEY_PATH" "$PUT_TAR_FILE" "$AWS_USER@$AWS_HOST:$REMOTE_DIR/"
 scp -P "$AWS_SSH_PORT" -i "$AWS_PRIVATE_KEY_PATH" "$POST_TAR_FILE" "$AWS_USER@$AWS_HOST:$REMOTE_DIR/"
 scp -P "$AWS_SSH_PORT" -i "$AWS_PRIVATE_KEY_PATH" "$DELETE_TAR_FILE" "$AWS_USER@$AWS_HOST:$REMOTE_DIR/"
-scp -P "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $PRODUCTION_SCRIPT $AWS_USER@$AWS_HOST:$REMOTE_DIR/
-scp -P "$AWS_SSH_PORT" -i $AWS_PRIVATE_KEY_PATH $COMPOSE_PRODUCTION_FILE $AWS_USER@$AWS_HOST:$REMOTE_DIR/
+scp -P "$AWS_SSH_PORT" -i "$AWS_PRIVATE_KEY_PATH" "$PRODUCTION_SCRIPT" "$AWS_USER@$AWS_HOST:$REMOTE_DIR/"
+scp -P "$AWS_SSH_PORT" -i "$AWS_PRIVATE_KEY_PATH" "$COMPOSE_PRODUCTION_FILE" "$AWS_USER@$AWS_HOST:$REMOTE_DIR/"
+scp -P "$AWS_SSH_PORT" -i "$AWS_PRIVATE_KEY_PATH" "$NGINX_CONFIG_FILE" "$AWS_USER@$AWS_HOST:$REMOTE_DIR/"
 
 # Connect to the EC2 instance and execute the production script
 echo "Connecting to $AWS_HOST and executing $PRODUCTION_SCRIPT..."
