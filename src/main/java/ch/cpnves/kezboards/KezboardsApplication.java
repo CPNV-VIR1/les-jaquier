@@ -1,13 +1,13 @@
-package ch.cpnves.payroll;
+package ch.cpnves.kezboards;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PayrollApplication {
+public class KezboardsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PayrollApplication.class, args);
+		SpringApplication.run(KezboardsApplication.class, args);
 	}
 
 }
