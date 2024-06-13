@@ -16,9 +16,9 @@ This repository is an example of an api rest spring application using docker wit
 All curl commands are executed in GitBash and use mingw implementation (more close to UNIX one that powershell).
 See [Git for Windows](https://gitforwindows.org/) for more information and download.
 
-#### NOTE FOR MAC M1 USERS
+#### NOTE FOR MAC M1 USERS (ARM)
 Currently, the "eclipse-temurin:17-jre-alpine" is not available on ARM64 devices, only AMD64 (on Dockerfiles).
-To use the project, adapt FROM "eclipse-temurin:17-jre-alpine" to "eclipse-temurin:17-jre".
+To use the project, adapt FROM "eclipse-temurin:17-jre-alpine" to "eclipse-temurin:17-jre-jammy". Remove "RUN apk add curl" because curl is already available in jammy version.
 
 ### Configuration
 Copy the '.env.example' to '.env' and set the environment variables for your needs (this will be mainly used for docker compose configuration and deployment).
