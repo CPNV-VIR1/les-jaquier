@@ -2,16 +2,22 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx-proxy
+    networks:
+      - public
+      - private
     ports:
       - 80:80
     volumes:
       - ./config/nginx:/etc/nginx/conf.d/
+      - log-data:/var/log/nginx
     depends_on:
       api-server:
         condition: service_healthy
   api-server:
     build:
       context: .
+    networks:
+      - private
     ports:
       - 8080:8080
     depends_on:
@@ -36,6 +42,8 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
+    networks:
+      - private
     ports:
       - 5432:5432
     healthcheck:
@@ -45,3 +53,8 @@ services:
       retries: 5
 volumes:
   db-data:
+  log-data:
+networks:
+  public:
+  private:
+    driver: bridge
