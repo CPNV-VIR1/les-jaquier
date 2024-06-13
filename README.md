@@ -74,8 +74,6 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 ```shell
 ├───.github
 │   └───workflows                //Github action with matrixes
-├───config                       //Every config for Docker Compose
-│   └───nginx                                              
 ├───ms-[delete, post, get, put]  //Consider these folders as a standalone repo. Should not have dependencies with other folders
 │   ├───README.md                //Provide a README for just the standalone microservice
 │   ├───Dockerfile
@@ -87,9 +85,9 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 │           │   ├───Entities
 │           │   └───Repositories
 │           └───resources
-├───deployment                   //All the script to deploy remotely
 ├───docs
-├───compose*.yaml
+├───compose*.yaml                //Dev and production docker compose
+├───*.sh                         //All the script to deploy remotely
 ├───.env
 └───README.md                    //The root files (like README) are only describing the combinaison of microservices with docker
 ```
