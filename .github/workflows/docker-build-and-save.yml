@@ -22,10 +22,10 @@ jobs:
         uses: docker/setup-buildx-action@v3
         
       - name: Build Docker image
-        run: docker build -t kezboards-${{ matrix.folder }}:${{ github.sha }} ./${{ matrix.folder }}
+        run: docker build -t kezboards-${{ matrix.folder }}:latest ./${{ matrix.folder }}
 
       - name: Save Docker image to tar file
-        run: docker save -o kezboards-${{ matrix.folder }}.tar kezboards-${{ matrix.folder }}:${{ github.sha }}
+        run: docker save -o kezboards-${{ matrix.folder }}.tar kezboards-${{ matrix.folder }}:latest
 
       - name: Upload Docker image tar file
         uses: actions/upload-artifact@v3
