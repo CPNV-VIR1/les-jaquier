@@ -32,7 +32,13 @@ curl -i localhost:8080/keyboards
 ````
 
 ### Deploy remotely (docker)
-Push the precompiled .tar to production with SCP (based on your .env config)
+SSH to your production and add the following content to a .env file (replace the password)
+```dotenv
+DB_NAME=kezboard
+DB_USER=kezboard
+DB_PASSWORD=kezboard
+````
+Push the precompiled .tar(s) to production with SCP (based on your .env config)
 ```
 cd ./deployment
 sh push-to-prod.sh
