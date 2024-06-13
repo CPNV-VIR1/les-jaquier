@@ -11,7 +11,13 @@ This repository is an example of an api rest spring application using docker.
 * (maven v3.9 or later [official doc](https://maven.apache.org/download.cgi))
 * (JDK 17 [official doc](https://www.oracle.com/java/technologies/downloads/))
 
+### NOTE FOR WINDOWS USERS
+All curl commands are executed in GitBash and use mingw implementation (more close to UNIX one that powershell).
+See [Git for Windows](https://gitforwindows.org/) for more information and download.
+
 ## First build
+
+First, copy the '.env.example' to '.env' and set the environment variables for your needs (this will be mainly used for docker compose configuration and deployment).
 
 Note : To find out which version of jdk to install in your project, check the pom.xlm file!
 
@@ -53,7 +59,7 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 [{"id":1,"name":"El CYPE","housing":"aluminum","numberOfKeycaps":68,"pcbformat":"ANSI"},{"id":2,"name":"Frodo Baggins","housing":"plastic","numberOfKeycaps":104,"pcbformat":"ANSI"},{"id":3,"name":"Gandalf the Grey","housing":"wood","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":4,"name":"Samwise Gamgee","housing":"aluminum","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":5,"name":"Aragorn","housing":"steel","numberOfKeycaps":104,"pcbformat":"ANSI"}]
 ```
 
-## Deploy with docker
+## Deploy locally with docker
 Deploy a postgresql, the spring api app and (in future) a NGinx API Gateway.
 ```
 docker compose up
@@ -62,6 +68,13 @@ You can try with
 ```
 curl -i localhost:8080/keyboards
 ````
+
+## Deploy remotely
+Push the precompiled .tar to production with SCP (based on your .env config)
+```
+sh push-to-prod.sh
+````
+Note : On windows, execute this with Git Bash.
 
 ## Collaborate
 
