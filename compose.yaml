@@ -6,7 +6,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./config/nginx:/etc/nginx/conf.d/
+      - ./ms-api-gateway/config/nginx:/etc/nginx/conf.d/
     depends_on:
       ms-get:
         condition: service_healthy
