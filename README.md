@@ -93,7 +93,7 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 │           └───resources
 ├───ms-[db, api-gateway]         //Used to build custom images without code
 │   ├───Dockerfile
-│   └───config                   //Optionnal additionnal config recommanded when used in compose
+│   └───...                      //Optionnal additionnal config recommanded when used in compose or for building image
 ├───docs
 ├───compose*.yaml                //Dev and production docker compose
 ├───*.sh                         //All the script to deploy remotely
@@ -112,3 +112,12 @@ Date: Thu, 30 May 2024 06:45:57 GMT
     * Release on the main branch we use GitFlow and not with GitHub release.
     * Use snake_case for branches. (example : feature/nginx_api_gateway)
     * Issues are added to the github issues page
+
+
+## License
+
+* [MIT License](https://opensource.org/license/mit)
+
+## Contact
+
+* If needed you can create an issue on GitHub we will try to respond as quickly as possible.
