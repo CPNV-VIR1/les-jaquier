@@ -112,3 +112,12 @@ Date: Thu, 30 May 2024 06:45:57 GMT
     * Release on the main branch we use GitFlow and not with GitHub release.
     * Use snake_case for branches. (example : feature/nginx_api_gateway)
     * Issues are added to the github issues page
+
+
+## License
+
+* [MIT License](https://opensource.org/license/mit)
+
+## Contact
+
+* If needed you can create an issue on GitHub we will try to respond as quickly as possible.
