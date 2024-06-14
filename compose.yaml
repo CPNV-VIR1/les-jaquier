@@ -6,7 +6,6 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./ms-api-gateway/config/nginx:/etc/nginx/conf.d/
       - log-data:/var/log/nginx
     depends_on:
       ms-get:
