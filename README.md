@@ -1,31 +1,60 @@
-# Keyboards - Dockerized Rest API
+# Kezboards - Dockerized Rest API
 
-This repository is an example of an api rest spring application.
+This repository is an example of an api rest spring application using docker with each microservices being a http verb.
 
-## First build
+## Getting Started
+### Prerequisites
+* AWS CLI v2.13 or later [official doc](https://aws.amazon.com/cli/)
+* IntelliJ IDEA Ultimate or later [official doc](https://www.jetbrains.com/idea/download/?section=windows)
+* IntelliJ Docker plugin [official doc](https://plugins.jetbrains.com/plugin/7724-docker/versions#tabs)
+* Docker V23 or later [official doc](https://www.docker.com/products/docker-desktop/)
+* git version 2.44 or later [official doc](https://git-scm.com/)
+* (maven v3.9 or later [official doc](https://maven.apache.org/download.cgi))
+* (JDK 17 [official doc](https://www.oracle.com/java/technologies/downloads/))
 
-Note : To find out which version of jdk to install in your project, check the pom.xlm file!
+#### NOTE FOR WINDOWS USERS
+All curl commands are executed in GitBash and use mingw implementation (more close to UNIX one that powershell).
+See [Git for Windows](https://gitforwindows.org/) for more information and download.
 
-* After cloning this repository, to retrieve the dependencies, compile and run the program for the first time, Run this command:
+Make also sure that the project embedded files (like kezboards.conf or nginx.conf) are in LF when cloned and in UTF-8 without BOM.
 
-[INPUT]
+#### NOTE FOR MAC M1 USERS (ARM)
+Currently, the "eclipse-temurin:17-jre-alpine" is not available on ARM64 devices, only AMD64 (on Dockerfiles).
+To use the project, adapt FROM "eclipse-temurin:17-jre-alpine" to "eclipse-temurin:17-jre-jammy". Remove "RUN apk add curl" because curl is already available in jammy version.
+
+### Configuration
+Copy the '.env.example' to '.env' and set the environment variables for your needs (this will be mainly used for docker compose configuration and deployment).
+
+## Deployment
+If you only want to build a single microservice (with Dockerfile or directly using maven), see the "ms-[http-verb]"/README.md
+### Deploy locally (docker)
+Deploy a postgresql, all the spring api microservices and a NGinx API Gateway.
 ```
-   mvn clean spring-boot:run
+docker compose up --build
+````
+You can try with
 ```
+curl -i localhost:8080/keyboards
+````
 
-[OUTPUT]
+### Deploy remotely (docker)
+SSH to your production and add the following content to a .env file (replace the password)
+```dotenv
+DB_NAME=kezboard
+DB_USER=kezboard
+DB_PASSWORD=kezboard
+````
+Push the precompiled .tar(s) to production with SCP (based on your .env config)
 ```
-  [...]
-    2024-05-30T08:42:27.632+02:00  INFO 1088 --- [payroll] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
-    2024-05-30T08:42:27.640+02:00  INFO 1088 --- [payroll] [           main] ch.cpnves.payroll.PayrollApplication     : Started PayrollApplication in 2.839 seconds (process running for 3.086)
-    2024-05-30T08:42:27.684+02:00  INFO 1088 --- [payroll] [           main] c.c.payroll.Repositories.LoadDatabase    : Preloading Employee{id=1, name='Bilbo Baggins', role='burglar'}
-    2024-05-30T08:42:27.685+02:00  INFO 1088 --- [payroll] [           main] c.c.payroll.Repositories.LoadDatabase    : Preloading Employee{id=2, name='Frodo Baggins', role='thief'}
-  [...]
-```
+cd ./deployment
+sh push-to-prod.sh
+````
+Note : On windows, execute this with Git Bash.
+
 
 ## Test using http requests
 
-Got the file [project]\src\main\java\ch\cpnves\payroll\Controllers\EmployeeController.java
+Go to the files [project]\ms[http-verb]\src\main\java\ch\cpnves\kezboards\[http-verb]\Controllers\KeyboardController.java
 
 Before all routes methods, you will find a curl sample.
 
@@ -44,12 +73,42 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 [{"id":1,"name":"El CYPE","housing":"aluminum","numberOfKeycaps":68,"pcbformat":"ANSI"},{"id":2,"name":"Frodo Baggins","housing":"plastic","numberOfKeycaps":104,"pcbformat":"ANSI"},{"id":3,"name":"Gandalf the Grey","housing":"wood","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":4,"name":"Samwise Gamgee","housing":"aluminum","numberOfKeycaps":87,"pcbformat":"ISO"},{"id":5,"name":"Aragorn","housing":"steel","numberOfKeycaps":104,"pcbformat":"ANSI"}]
 ```
 
-## Deploy with docker
-Deploy a postgresql, the spring api app and (in future) a NGinx API Gateway.
+## Directory structure
+
+* Tip: try the tree bash command
+
+```shell
+├───.github
+│   └───workflows                //Github action with matrixes
+├───ms-[get, post, put, delete]  //Consider these folders as a standalone repo. Should not have dependencies with other folders
+│   ├───README.md                //Provide a README for just the standalone microservice
+│   ├───Dockerfile
+│   ├───pom.xml
+│   └───src                      //The structure below src can vary depending the language /appverifUI.dll framework (Here, a java spring microservice)
+│       └───main
+│           ├───java.ch.cpnves...[delete, post, get, put]
+│           │   ├───Controllers
+│           │   ├───Entities
+│           │   └───Repositories
+│           └───resources
+├───ms-[db, api-gateway]         //Used to build custom images without code
+│   ├───Dockerfile
+│   └───config                   //Optionnal additionnal config recommanded when used in compose
+├───docs
+├───compose*.yaml                //Dev and production docker compose
+├───*.sh                         //All the script to deploy remotely
+├───.env
+└───README.md                    //The root files (like README) are only describing the combinaison of microservices with docker
 ```
-docker compose up
-````
-You can try with 
-```
-curl -i localhost:8080/keyboards
-````
+
+## Collaborate
+
+* Workflow
+    * [Gitflow](https://www.atlassian.com/fr/git/tutorials/comparing-workflows/gitflow-workflow#:~:text=Gitflow%20est%20l'un%20des,les%20hotfix%20vers%20la%20production.)
+    * [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
+    * [How to use your workflow](https://nvie.com/posts/a-successful-git-branching-model/)
+
+    * Pull requests are open to merge in the develop branch.
+    * Release on the main branch we use GitFlow and not with GitHub release.
+    * Use snake_case for branches. (example : feature/nginx_api_gateway)
+    * Issues are added to the github issues page

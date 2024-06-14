@@ -1,7 +1,6 @@
 services:
   ms-api-gateway:
-    build:
-      context: ms-api-gateway
+    image: kezboards-api-gateway:latest
     container_name: ms-api-gateway
     ports:
       - 8080:80
@@ -11,8 +10,7 @@ services:
       ms-get:
         condition: service_healthy
   ms-get:
-    build:
-      context: ms-get
+    image: kezboards-get:latest
     container_name: ms-get
     depends_on:
       ms-db:
@@ -28,8 +26,7 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
   ms-put:
-    build:
-      context: ms-put
+    image: kezboards-put:latest
     container_name: ms-put
     depends_on:
       ms-db:
@@ -39,8 +36,7 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
   ms-post:
-    build:
-      context: ms-post
+    image: kezboards-post:latest
     container_name: ms-post
     depends_on:
       ms-db:
@@ -50,8 +46,7 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
   ms-delete:
-    build:
-      context: ms-delete
+    image: kezboards-delete:latest
     container_name: ms-delete
     depends_on:
       ms-db:
@@ -61,8 +56,7 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
   ms-db:
-    build:
-      context: ms-db
+    image: kezboards-db:latest
     container_name: ms-db
     restart: always
     volumes:
