@@ -93,7 +93,7 @@ Date: Thu, 30 May 2024 06:45:57 GMT
 │           └───resources
 ├───ms-[db, api-gateway]         //Used to build custom images without code
 │   ├───Dockerfile
-│   └───config                   //Optionnal additionnal config recommanded when used in compose
+│   └───...                      //Optionnal additionnal config recommanded when used in compose or for building image
 ├───docs
 ├───compose*.yaml                //Dev and production docker compose
 ├───*.sh                         //All the script to deploy remotely
